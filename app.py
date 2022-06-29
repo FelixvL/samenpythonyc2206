@@ -24,7 +24,7 @@ def felixeerste():
 @app.route("/nellekeeerste")
 @cross_origin()
 def nellekeeerste():
-    return nelleke.methodevannelleke()
+    return nelleke.toonDataDeel()
 
 @app.route("/suzanneeerste")
 @cross_origin()
@@ -35,3 +35,8 @@ def suzanneeerste():
 def quoteaanmaken(name):
     felix.aanmakenquote(name)
     return "hij doet het"
+
+@app.route("/nelleketweede/<num>")
+@cross_origin()
+def nelleketweede(num):
+    return nelleke.toonDataSpecifiek(num)
