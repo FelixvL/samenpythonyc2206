@@ -1,6 +1,6 @@
 import mysql.connector
 from flask import jsonify
-
+import pandas as pd
 
 def methodevannelleke():
 	print("naar de database")
@@ -16,3 +16,10 @@ def methodevannelleke():
 	print(recordset)
 	return jsonify(list(recordset))
 
+# import csv file
+try:
+    df = pd.read_csv("C:/Users/Nelleke/Documents/YC/Traineeship/samenpythonyc2206/data/maaltijden.csv")
+except Exception as err:
+    print(err)
+    
+print(df)
