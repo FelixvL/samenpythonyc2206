@@ -4,7 +4,7 @@ import pandas as pd
 
 # import data
 try:
-    df = pd.read_csv("C:/Users/Nelleke/Documents/YC/Traineeship/samenpythonyc2206/data/maaltijden.csv")
+    df = pd.read_csv("./data/maaltijden.csv")
 except Exception as err:
     print(err)
         
@@ -31,4 +31,4 @@ def toonDataSpecifiek(num):
     row = int(num)
     toon = df.iloc[row]
     print(toon)
-    return "toonDataSpecifiek is gelukt"
+    return toon.to_json()
