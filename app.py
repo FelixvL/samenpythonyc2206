@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS, cross_origin
 
-#import felix
+import felix
 #import nelleke
 #import suzanne
 
