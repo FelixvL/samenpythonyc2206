@@ -1,5 +1,26 @@
 from flask import Flask
 from flask_cors import CORS, cross_origin
+import mysql.connector
+
+def getDBVerbinding():
+   
+    mydb = mysql.connector.connect(
+        host="2206-bezorgapp.mysql.database.azure.com",  #port erbij indien mac
+        port=3306,
+        user="beheerder@2206-bezorgapp",
+        password="abcd1234ABCD!@#$",
+        database="bezorgappbigdata"
+    )
+    '''
+    mydb = mysql.connector.connect(
+        host="localhost",  #port erbij indien mac
+        port=3306,
+        user="root",
+        password="",
+        database="patat"
+    )
+    ''' 
+    return mydb
 
 import felix
 import nelleke
