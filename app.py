@@ -40,3 +40,8 @@ def quoteaanmaken(name):
 @cross_origin()
 def nelleketweede(num):
     return nelleke.toonDataSpecifiek(num)
+
+@app.route("/nellekederde/")
+@cross_origin()
+def nellekederde():
+    return nelleke.toonQuotes()

@@ -1,6 +1,10 @@
 import mysql.connector
 from flask import jsonify
 import pandas as pd
+import bs4
+import requests
+import json
+import re
 
 # import data
 try:
@@ -32,3 +36,17 @@ def toonDataSpecifiek(num):
     toon = df.iloc[row]
     print(toon)
     return toon.to_json()
+
+def toonQuotes():    
+    try: # errorhandling
+        rg = requests.get("https://medium.com/swlh/21-of-the-worlds-most-powerful-quotes-updated-for-today-and-tomorrow-6b7634358c2") # GET document from medium.com        
+    except Exception as err: 
+        print("Something went wrong:", err)
+        rg = None
+        
+    html_doc = rg.text # get HMTL content from response object
+    soup = bs4.BeautifulSoup(html_doc, 'html.parser') # turn html_doc into BS4 object
+    quotes = soup.find_all("h2") # find all quotes  
+        
+    for q in quotes[:21]:
+        print(f"{q.contents[0].strip()}")
