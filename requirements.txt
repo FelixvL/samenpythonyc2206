@@ -4,5 +4,4 @@ mysql-connector-python
 pandas
 bs4
 requests
-json
 regex
