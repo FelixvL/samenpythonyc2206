@@ -2,6 +2,6 @@ flask
 flask_cors
 mysql-connector-python
 pandas
-bs4
+beautifulsoup4
 requests
 regex
