@@ -1,19 +1,12 @@
 import mysql.connector
 from flask import jsonify
-
-mydb = mysql.connector.connect(
-	host="2206-bezorgapp.mysql.database.azure.com",  #port erbij indien mac
-	port=3306,
-	user="beheerder@2206-bezorgapp",
-	password="abcd1234ABCD!@#$",
-	database="bezorgappyc2206"
-)
+import app
 
 def methodevansuzanne():
 	print("naar de database")
-
+	mydb = app.getDBVerbinding()
 	mycursor = mydb.cursor()
-	mycursor.execute("SELECT * FROM maaltijd")
+	mycursor.execute("SELECT * FROM quote")
 	recordset = mycursor.fetchall()
 	print(recordset)
 
