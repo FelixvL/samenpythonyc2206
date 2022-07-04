@@ -2,8 +2,8 @@ from flask import Flask
 from flask_cors import CORS, cross_origin
 
 import felix
-#import nelleke
-#import suzanne
+import nelleke
+import suzanne
 
 app = Flask(__name__)
 cors = CORS(app)
