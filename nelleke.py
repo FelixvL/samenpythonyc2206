@@ -49,4 +49,10 @@ def toonQuotes():
     quotes = soup.find_all("h2") # find all quotes  
         
     for q in quotes[:21]:
-        print(f"{q.contents[0].strip()}")
+#        print(f"{q.contents[0].strip()}")
+        res = str(q).split("“")
+        res2 = res[1][:-6]
+        res3 = res2.split("” — ")
+        print("quote: ",res3[0], "\nauteur: ", res3[1],"\n\n")
+
+    return "hoi in ToonQuotes"
