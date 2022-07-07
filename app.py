@@ -45,3 +45,8 @@ def nelleketweede(num):
 @cross_origin()
 def nellekederde():
     return nelleke.toonQuotes()
+
+@app.route("/nellekevierde/")
+@cross_origin()
+def nellekevierde():
+    return nelleke.opslaanQuotes()
