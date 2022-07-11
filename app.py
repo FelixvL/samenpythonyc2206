@@ -68,17 +68,18 @@ def nelleketweede(num):
 def nellekederde():
     return nelleke.toonQuotesAllemaal()
 
-@app.route("/nellekevijfde/")
-@cross_origin()
-def nellekevijfde():
-    return nelleke.toonQuoteRandom()
-
 @app.route("/nellekevierde/")
 @cross_origin()
 def nellekevierde():
-    return nelleke.opslaanQuotes()
+    print("We zitten in de vierde")
+    return nelleke.randomQuote()
 
 
 @app.route('/felixposttrial', methods = ['POST'])
 def update_text():
     return felix.postprobeersel(request)
+
+@app.route("/nellekevijfde/")
+@cross_origin()
+def nellekevijfde():
+    return nelleke.opslaanQuotes()

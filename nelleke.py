@@ -49,16 +49,21 @@ def toonQuotesAllemaal():
         res = str(q).split("“")
         res2 = res[1][:-5]
         res3 = res2.split("” — ")
+        q = res3[0]
+        a = res3[1]
         
         counter +=1
-        tekst_en_auteur = (f"{counter}: {res3[0]} - {res3[1]}")
+        tekst_en_auteur = (f"{q} - {a}")
         quotes_lijst.append(tekst_en_auteur)
         
-    print(quotes_lijst)
+    return quotes_lijst, q, a
 
-# def randomQuote(nummer):
-#     nummer = random.randint(0, 22)
-#     return "Hi,  quotes_lijst.get(nummer)
+def randomQuote():
+    nummer = random.randint(0, 21)
+    quotes = toonQuotesAllemaal()
+    print("----------")
+    print(quotes)
+    return quotes[0][nummer]
 
 
 def opslaanQuotes():    
@@ -87,4 +92,4 @@ def opslaanQuotes():
         mydb.commit()
         print(mycursor.rowcount, "record inserted.")
     
-    return "opslaan van quotes is gelukt"
+    return "opslaan van quotes is gelukt!!!"
