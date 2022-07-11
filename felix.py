@@ -1,4 +1,5 @@
 from flask import jsonify
+from flask import request
 import app
 
 
@@ -20,3 +21,11 @@ def aanmakenquote(denaam):
 	mydb.commit()
 	print(mycursor.rowcount, "record inserted.")
 
+def postprobeersel(verzoek):
+	print("in de post")
+	if verzoek.method == 'POST':
+		print("echt in de post")
+		print(verzoek)
+		print(verzoek.data)
+
+	return "daar gaan we22"

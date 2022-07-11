@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import request
 from flask_cors import CORS, cross_origin
 import mysql.connector
 
@@ -71,3 +72,8 @@ def nellekederde():
 @cross_origin()
 def nellekevierde():
     return nelleke.opslaanQuotes()
+
+
+@app.route('/felixposttrial', methods = ['POST'])
+def update_text():
+    return felix.postprobeersel(request)
