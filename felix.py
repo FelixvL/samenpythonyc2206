@@ -1,4 +1,6 @@
 from flask import jsonify
+from flask import request
+import json
 import app
 
 
@@ -20,3 +22,9 @@ def aanmakenquote(denaam):
 	mydb.commit()
 	print(mycursor.rowcount, "record inserted.")
 
+def postprobeersel(verzoek):
+	if verzoek.method == 'POST':
+		jsonResponse = json.loads(verzoek.data.decode('utf-8'))
+		print(jsonResponse["naam"])
+		return jsonResponse["naam"]
+	return "{\"oo\":\"GEEN POST\"}"
