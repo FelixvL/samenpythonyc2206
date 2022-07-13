@@ -56,7 +56,7 @@ def suzanneeerste():
 @app.route("/aanmakenquote/<name>")
 def quoteaanmaken(name):
     felix.aanmakenquote(name)
-    return "hij doet het"
+    return "Wij kunnen inderdaad een quote aanmaken"
 
 @app.route("/nelleketweede/<num>")
 @cross_origin()
@@ -66,14 +66,13 @@ def nelleketweede(num):
 @app.route("/nellekederde/")
 @cross_origin()
 def nellekederde():
+    print("De derde doet het wel")
     return nelleke.toonQuotesAllemaal()
 
 @app.route("/nellekevierde/")
 @cross_origin()
 def nellekevierde():
-    print("We zitten in de vierde")
     return nelleke.randomQuote()
-
 
 @app.route('/felixposttrial', methods = ['POST'])
 def update_text():

@@ -49,22 +49,20 @@ def toonQuotesAllemaal():
         res = str(q).split("“")
         res2 = res[1][:-5]
         res3 = res2.split("” — ")
-        q = res3[0]
-        a = res3[1]
         
         counter +=1
-        tekst_en_auteur = (f"{q} - {a}")
+        tekst_en_auteur = (f"{counter}: {res3[0]} - {res3[1]}")
         quotes_lijst.append(tekst_en_auteur)
-        
-    return quotes_lijst, q, a
+    
+    print(quotes_lijst)
+    return str(quotes_lijst)
 
 def randomQuote():
     nummer = random.randint(0, 21)
     quotes = toonQuotesAllemaal()
-    print("----------")
-    print(quotes)
-    return quotes[0][nummer]
+    print(quotes[nummer])
 
+    return quotes[nummer]
 
 def opslaanQuotes():    
     try: # errorhandling
