@@ -6,6 +6,10 @@ import requests
 import json
 import re
 import random
+from pathlib import Path
+
+CWD = Path(__file__).parent
+DATAPATH = CWD / "data"
 
 # import data
 try:
@@ -21,11 +25,11 @@ mydb = mysql.connector.connect(
 	database="bezorgappbigdata"
 )
 
-def toon_data_deel():     
+def toon_data():     
     print(df.head())
     return "toonDataDeel is gelukt"
 
-def toon_data_specifiek(num):
+def toon_data_rij(num):
     row = int(num)
     toon = df.iloc[row]
     print(toon)
@@ -57,39 +61,52 @@ def get_quotes():
     
     return quotes_lijst
 
-def toon_quotes_allemaal():
-    return jsonify(get_quotes())
-
-def random_quote():
-    nummer = random.randint(0, 21)
+def quotes_opslaan_txt():
     quotes = get_quotes()
+
+    # maak datapath aan en als deze bestaat, geef dan geen error
+    DATAPATH.mkdir(exist_ok=True)
+
+    with open(DATAPATH / "quotes.txt", "w") as f:
+        for q in quotes:
+            f.write(q + "\n")
+
+def quotes_lezen_txt():
+    quotes_bestand = DATAPATH / "quotes.txt"
+    if not quotes_bestand.exists():
+        quotes_opslaan_txt()
+
+    new_quotes = []
+    with open(quotes_bestand, "r") as f:
+        for line in f:
+            new_quotes.append(line.strip())
+    return new_quotes
+
+def quotes_tonen_allemaal():
+    return jsonify(quotes_lezen_txt())
+
+def quote_random():
+    nummer = random.randint(0, 21)
+    quotes = quotes_lezen_txt()
     resultaat = {"quote":quotes[nummer]} 
     return jsonify(resultaat)
 
-def opslaan_quotes():    
-    try: # errorhandling
-        rg = requests.get("https://medium.com/swlh/21-of-the-worlds-most-powerful-quotes-updated-for-today-and-tomorrow-6b7634358c2") # GET document from medium.com        
-    except Exception as err: 
-        print("Something went wrong:", err)
-        rg = None
-        
-    html_doc = rg.text # get HMTL content from response object
-    soup = bs4.BeautifulSoup(html_doc, 'html.parser') # turn html_doc into BS4 object
-    quotes = soup.find_all("h2") # find all quotes  
-        
-    for quote in quotes[:21]:
-        res = str(quote).split("“")
-        res2 = res[1][:-5]
-        res3 = res2.split("” — ")
+def quotes_opslaan_sql():    
+    quotes = quotes_lezen_txt()
+
+    mycursor = mydb.cursor()
+    # leeg tabel
+    mycursor.execute("DELETE FROM quote")
     
-        q = res3[0]
-        a = res3[1]
+    # reset index
+    mycursor.execute("ALTER TABLE quote AUTO_INCREMENT = 1")
+
+    for quote in quotes[:21]:        
+        tekst, auteur = quote.split(" - ")
     
-        mycursor = mydb.cursor()
         sql = "INSERT INTO quote (tekst, auteur) VALUES (%s, %s)"
-        val = (q, a)
+        val = (tekst, auteur)
         mycursor.execute(sql, val)
-        mydb.commit()
         print(mycursor.rowcount, "record inserted.")
     
-    return "opslaan van quotes is gelukt!!!"
+    mydb.commit()

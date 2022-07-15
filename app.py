@@ -48,7 +48,7 @@ def felixeerste():
 @app.route("/nellekeeerste")
 @cross_origin()
 def nellekeeerste():
-    return nelleke.toon_data_deel()
+    return nelleke.toon_data()
 
 @app.route("/suzanneeerste")
 @cross_origin()
@@ -63,7 +63,7 @@ def quoteaanmaken(name):
 @app.route("/nelleketweede/<num>")
 @cross_origin()
 def nelleketweede(num):
-    return nelleke.toon_data_specifiek(num)
+    return nelleke.toon_data_rij(num)
 
 @app.route("/nellekederde/")
 @cross_origin()
@@ -74,7 +74,7 @@ def nellekederde():
 @app.route("/nellekevierde/")
 @cross_origin()
 def nellekevierde():
-    return nelleke.random_quote()
+    return nelleke.quote_random()
 
 @app.route('/felixposttrial', methods = ['POST'])
 def update_text():
@@ -83,11 +83,16 @@ def update_text():
 @app.route("/nellekevijfde/")
 @cross_origin()
 def nellekevijfde():
-    return nelleke.opslaan_quotes()
+    nelleke.quotes_opslaan_sql()
+    return "opslaan van quotes in sql database is gelukt"
 
 @app.route("/random_maaltijd/")
 @cross_origin()
 def random_maaltijd():
     return nelleke.toon_data_random()
-    
-    
+
+@app.route("/ververs_quotes/")
+@cross_origin()
+def ververs_quotes():
+    nelleke.quotes_opslaan_txt()
+    return "de quotes zijn ververst"
