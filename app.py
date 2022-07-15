@@ -84,3 +84,10 @@ def update_text():
 @cross_origin()
 def nellekevijfde():
     return nelleke.opslaan_quotes()
+
+@app.route("/random_maaltijd/")
+@cross_origin()
+def random_maaltijd():
+    return nelleke.toon_data_random()
+    
+    

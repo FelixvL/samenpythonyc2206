@@ -31,6 +31,9 @@ def toon_data_specifiek(num):
     print(toon)
     return toon.to_json()
 
+def toon_data_random():
+    return df.sample().to_json(orient = "index")
+
 def get_quotes():    
     try: # errorhandling
         rg = requests.get("https://medium.com/swlh/21-of-the-worlds-most-powerful-quotes-updated-for-today-and-tomorrow-6b7634358c2") # GET document from medium.com        
