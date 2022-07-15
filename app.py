@@ -2,6 +2,8 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS, cross_origin
 import mysql.connector
+from dotenv import load_dotenv
+load_dotenv()
 
 def getDBVerbinding():
    
@@ -46,7 +48,7 @@ def felixeerste():
 @app.route("/nellekeeerste")
 @cross_origin()
 def nellekeeerste():
-    return nelleke.toonDataDeel()
+    return nelleke.toon_data_deel()
 
 @app.route("/suzanneeerste")
 @cross_origin()
@@ -61,18 +63,18 @@ def quoteaanmaken(name):
 @app.route("/nelleketweede/<num>")
 @cross_origin()
 def nelleketweede(num):
-    return nelleke.toonDataSpecifiek(num)
+    return nelleke.toon_data_specifiek(num)
 
 @app.route("/nellekederde/")
 @cross_origin()
 def nellekederde():
     print("De derde doet het wel")
-    return nelleke.toonQuotesAllemaal()
+    return nelleke.toon_quotes_allemaal()
 
 @app.route("/nellekevierde/")
 @cross_origin()
 def nellekevierde():
-    return nelleke.randomQuote()
+    return nelleke.random_quote()
 
 @app.route('/felixposttrial', methods = ['POST'])
 def update_text():
@@ -81,4 +83,4 @@ def update_text():
 @app.route("/nellekevijfde/")
 @cross_origin()
 def nellekevijfde():
-    return nelleke.opslaanQuotes()
+    return nelleke.opslaan_quotes()

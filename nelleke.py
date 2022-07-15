@@ -1,5 +1,5 @@
 import mysql.connector
-from flask import jsonify
+from flask import jsonify, Response
 import pandas as pd
 import bs4
 import requests
@@ -21,17 +21,17 @@ mydb = mysql.connector.connect(
 	database="bezorgappbigdata"
 )
 
-def toonDataDeel():     
+def toon_data_deel():     
     print(df.head())
     return "toonDataDeel is gelukt"
 
-def toonDataSpecifiek(num):
+def toon_data_specifiek(num):
     row = int(num)
     toon = df.iloc[row]
     print(toon)
     return toon.to_json()
 
-def toonQuotesAllemaal():    
+def get_quotes():    
     try: # errorhandling
         rg = requests.get("https://medium.com/swlh/21-of-the-worlds-most-powerful-quotes-updated-for-today-and-tomorrow-6b7634358c2") # GET document from medium.com        
     except Exception as err: 
@@ -42,7 +42,6 @@ def toonQuotesAllemaal():
     soup = bs4.BeautifulSoup(html_doc, 'html.parser') # turn html_doc into BS4 object
     quotes = soup.find_all("h2") # find all quotes  
     
-    counter = 0
     quotes_lijst = []
     
     for q in quotes[:21]:
@@ -50,21 +49,21 @@ def toonQuotesAllemaal():
         res2 = res[1][:-5]
         res3 = res2.split("” — ")
         
-        counter +=1
-        tekst_en_auteur = (f"{counter}: {res3[0]} - {res3[1]}")
+        tekst_en_auteur = (f"{res3[0]} - {res3[1]}")
         quotes_lijst.append(tekst_en_auteur)
     
-    print(quotes_lijst)
-    return str(quotes_lijst)
+    return quotes_lijst
 
-def randomQuote():
+def toon_quotes_allemaal():
+    return jsonify(get_quotes())
+
+def random_quote():
     nummer = random.randint(0, 21)
-    quotes = toonQuotesAllemaal()
-    print(quotes[nummer])
+    quotes = get_quotes()
+    resultaat = {"quote":quotes[nummer]} 
+    return jsonify(resultaat)
 
-    return quotes[nummer]
-
-def opslaanQuotes():    
+def opslaan_quotes():    
     try: # errorhandling
         rg = requests.get("https://medium.com/swlh/21-of-the-worlds-most-powerful-quotes-updated-for-today-and-tomorrow-6b7634358c2") # GET document from medium.com        
     except Exception as err: 
