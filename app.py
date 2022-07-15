@@ -1,8 +1,8 @@
-from flask import Flask
-from flask import request
-from flask_cors import CORS, cross_origin
 import mysql.connector
 from dotenv import load_dotenv
+from flask import Flask, request
+from flask_cors import CORS, cross_origin
+
 load_dotenv()
 
 def getDBVerbinding():
@@ -69,7 +69,7 @@ def nelleketweede(num):
 @cross_origin()
 def nellekederde():
     print("De derde doet het wel")
-    return nelleke.toon_quotes_allemaal()
+    return nelleke.quotes_tonen_allemaal()
 
 @app.route("/nellekevierde/")
 @cross_origin()
