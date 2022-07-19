@@ -75,7 +75,7 @@ def maaltijd_random():
 @app.route("/quotes/")
 @cross_origin()
 def quotes():
-    return nelleke.toon_quotes_allemaal()
+    return nelleke.quotes_tonen()
 
 @app.route("/quote_random/")
 @cross_origin()
