@@ -53,8 +53,8 @@ def quoteaanmaken(name):
     felix.aanmakenquote(name)
     return "Wij kunnen inderdaad een quote aanmaken"
 
-@app.route('/felixposttrial', methods = ['POST'])
-def update_text():
+@app.route('/felixposttrial2', methods = ['POST'])
+def update_text2():
     return felix.postprobeersel(request)
 
 @app.route("/maaltijden")
