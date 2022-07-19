@@ -70,6 +70,8 @@ def quotes_opslaan_txt():
     with open(DATAPATH / "quotes.txt", "w") as f:
         for q in quotes:
             f.write(q + "\n")
+    
+    return quotes.txt
 
 def quotes_lezen_txt():
     quotes_bestand = DATAPATH / "quotes.txt"
