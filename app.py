@@ -94,13 +94,3 @@ def quotes_opslaan_sql():
 def ververs_quotes():
     nelleke.quotes_opslaan_txt()
     return "de quotes zijn ververst"
-
-@app.route("/quote_random/")
-@cross_origin()
-def random_maaltijd():
-    return nelleke.toon_maaltijd_random()
-
-# @app.route("/quote_random2/")
-# @cross_origin()
-# def quote_random2():
-#     return nelleke.quote_ranslim()
