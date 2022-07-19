@@ -1,8 +1,8 @@
-from flask import Flask
-from flask import request
-from flask_cors import CORS, cross_origin
 import mysql.connector
 from dotenv import load_dotenv
+from flask import Flask, request
+from flask_cors import CORS, cross_origin
+
 load_dotenv()
 
 def getDBVerbinding():
@@ -53,6 +53,25 @@ def quoteaanmaken(name):
     felix.aanmakenquote(name)
     return "Wij kunnen inderdaad een quote aanmaken"
 
+<<<<<<< HEAD
+=======
+@app.route("/nelleketweede/<num>")
+@cross_origin()
+def nelleketweede(num):
+    return nelleke.toon_data_rij(num)
+
+@app.route("/nellekederde/")
+@cross_origin()
+def nellekederde():
+    print("De derde doet het wel")
+    return nelleke.quotes_tonen_allemaal()
+
+@app.route("/nellekevierde/")
+@cross_origin()
+def nellekevierde():
+    return nelleke.quote_random()
+
+>>>>>>> master
 @app.route('/felixposttrial', methods = ['POST'])
 def update_text():
     return felix.postprobeersel(request)
@@ -100,7 +119,15 @@ def ververs_quotes():
 def random_maaltijd():
     return nelleke.toon_data_random()
 
+<<<<<<< HEAD
 # @app.route("/quote_random2/")
 # @cross_origin()
 # def quote_random2():
 #     return nelleke.quote_ranslim()
+=======
+@app.route("/ververs_quotes/")
+@cross_origin()
+def ververs_quotes():
+    nelleke.quotes_opslaan_txt()
+    return "de quotes zijn ververst"
+>>>>>>> master
