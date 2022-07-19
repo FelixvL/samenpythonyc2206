@@ -48,9 +48,9 @@ def suzanneeerste():
 def felixeerste():
     return felix.methodevanfelix()
 
-@app.route("/aanmakenquote/<name>")
-def quoteaanmaken(name):
-    felix.aanmakenquote(name)
+@app.route("/nieuwe_quote_opslaan/<a>/<t>")
+def quote_nieuw(a,t):
+    felix.nieuwe_quote_opslaan(a,t)
     return "Wij kunnen inderdaad een quote aanmaken"
 
 @app.route('/felixposttrial2', methods = ['POST'])

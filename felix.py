@@ -13,14 +13,14 @@ def methodevanfelix():
 	print(recordset)
 	return jsonify(list(recordset))
 
-def aanmakenquote(denaam):
+def quote_nieuw(a, t):
 	mydb = app.getDBVerbinding()
 	mycursor = mydb.cursor()
 	sql = "INSERT INTO quote (tekst, auteur) VALUES (%s, %s)"
-	val = (denaam, "harry")
+	val = (a, t)
 	mycursor.execute(sql, val)
 	mydb.commit()
-	print(mycursor.rowcount, "record inserted.")
+	print(mycursor.rowcount, "auteur en tekst toegevoegd")
 
 def postprobeersel(verzoek):
 	if verzoek.method == 'POST':
