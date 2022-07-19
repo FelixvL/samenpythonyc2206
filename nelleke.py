@@ -75,6 +75,9 @@ def quotes_lezen_txt():
     quotes_bestand = DATAPATH / "quotes.txt"
     if not quotes_bestand.exists():
         quotes_opslaan_txt()
+    else:
+        return "er gaat wel iets goed"
+        
 
     new_quotes = []
     with open(quotes_bestand, "r") as f:
