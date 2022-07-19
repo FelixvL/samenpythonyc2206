@@ -76,8 +76,7 @@ def quotes_lezen_txt():
     if not quotes_bestand.exists():
         quotes_opslaan_txt()
     else:
-        return "er gaat wel iets goed"
-        
+        pass
 
     new_quotes = []
     with open(quotes_bestand, "r") as f:
