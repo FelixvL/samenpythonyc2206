@@ -38,15 +38,15 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def hello_world():
     return "<p>Hello, World!</p>"
 
-@app.route("/suzanneeerste")
-@cross_origin()
-def suzanneeerste():
-    return suzanne.methodevansuzanne()
+# @app.route("/suzanneeerste")
+# @cross_origin()
+# def suzanneeerste():
+#     return suzanne.methodevansuzanne()
 
-@app.route("/felixeerste")
-@cross_origin()
-def felixeerste():
-    return felix.methodevanfelix()
+# @app.route("/felixeerste")
+# @cross_origin()
+# def felixeerste():
+#     return felix.methodevanfelix()
 
 @app.route("/nieuwe_quote_opslaan/<a>/<t>")
 def quote_nieuw(a,t):
@@ -62,10 +62,10 @@ def update_text2():
 def maaltijden():
     return nelleke.toon_maaltijden()
 
-@app.route("/maaltijd_rij/<num>")
-@cross_origin()
-def maaltijd_rij(num):
-    return nelleke.toon_maaltijd_rij(num)
+# @app.route("/maaltijd_rij/<num>")
+# @cross_origin()
+# def maaltijd_rij(num):
+#     return nelleke.toon_maaltijd_rij(num)
 
 @app.route("/maaltijd_random/")
 @cross_origin()
@@ -82,19 +82,19 @@ def quotes():
 def quote_random():
     return nelleke.quote_toon_random()
     
-@app.route("/quote_ranslim/")
-@cross_origin()
-def quote_ranslim():
-    return nelleke.quote_toon_ranslim()
+# @app.route("/quote_ranslim/")
+# @cross_origin()
+# def quote_ranslim():
+#     return nelleke.quote_toon_ranslim()
 
-@app.route("/quotes_opslaan_sql/")
-@cross_origin()
-def quotes_opslaan_sql():
-    nelleke.quotes_opslaan_sql()
-    return "opslaan van quotes in sql database is gelukt"
+# @app.route("/quotes_opslaan_sql/")
+# @cross_origin()
+# def quotes_opslaan_sql():
+#     nelleke.quotes_opslaan_sql()
+#     return "opslaan van quotes in sql database is gelukt"
 
-@app.route("/quotes_verversen/")
-@cross_origin()
-def ververs_quotes():
-    nelleke.quotes_opslaan_txt()
-    return "de quotes zijn ververst"
+# @app.route("/quotes_verversen/")
+# @cross_origin()
+# def ververs_quotes():
+#     nelleke.quotes_opslaan_txt()
+#     return "de quotes zijn ververst"

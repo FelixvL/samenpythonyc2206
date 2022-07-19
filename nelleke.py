@@ -91,9 +91,9 @@ def quote_toon_random():
     resultaat = {"quote":quotes[nummer]} 
     return jsonify(resultaat)
 
-def quote_toon_ranslim():
-    quotes = quotes_lezen_txt()
-    return random.choice(quotes)
+# def quote_toon_ranslim():
+#     quotes = quotes_lezen_txt()
+#     return random.choice(quotes)
 
 def quotes_opslaan_sql():    
     quotes = quotes_lezen_txt()
