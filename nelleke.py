@@ -36,7 +36,7 @@ def toon_maaltijd_rij(num):
     return toon.to_json()
 
 def toon_maaltijd_random():
-    return df.sample().to_json()
+    return df.sample().to_json(orient="records")
 
 def get_quotes():    
     try: # errorhandling
@@ -75,26 +75,26 @@ def quotes_lezen_txt():
     quotes_bestand = DATAPATH / "quotes.txt"
     if not quotes_bestand.exists():
         quotes_opslaan_txt()
-
+        
     new_quotes = []
     with open(quotes_bestand, "r") as f:
         for line in f:
             new_quotes.append(line.strip())
     return new_quotes
 
-def quotes_tonen_allemaal():
+def quotes_tonen():
     return jsonify(quotes_lezen_txt())
 
-def quote_random():
-    nummer = random.randint(0, 21)
+def quote_toon_random():
+    nummer = random.randint(0, 20)
     quotes = quotes_lezen_txt()
+    print(type(quotes))
     resultaat = {"quote":quotes[nummer]} 
     return jsonify(resultaat)
 
-def quote_ranslim():
+def quote_toon_ranslim():
     quotes = quotes_lezen_txt()
-    resultaat = quotes.sample().to_json(orient = "index")
-    return resultaat
+    return random.choice(quotes)
 
 def quotes_opslaan_sql():    
     quotes = quotes_lezen_txt()

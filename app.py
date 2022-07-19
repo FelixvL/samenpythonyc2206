@@ -75,13 +75,17 @@ def maaltijd_random():
 @app.route("/quotes/")
 @cross_origin()
 def quotes():
-    print("De derde doet het wel")
     return nelleke.toon_quotes_allemaal()
 
 @app.route("/quote_random/")
 @cross_origin()
-def toon_random_quote():
-    return nelleke.quote_random()
+def quote_random():
+    return nelleke.quote_toon_random()
+    
+@app.route("/quote_ranslim/")
+@cross_origin()
+def quote_ranslim():
+    return nelleke.quote_toon_ranslim()
 
 @app.route("/quotes_opslaan_sql/")
 @cross_origin()
