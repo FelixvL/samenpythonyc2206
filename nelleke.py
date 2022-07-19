@@ -70,16 +70,12 @@ def quotes_opslaan_txt():
     with open(DATAPATH / "quotes.txt", "w") as f:
         for q in quotes:
             f.write(q + "\n")
-    
-    return quotes.txt
 
 def quotes_lezen_txt():
     quotes_bestand = DATAPATH / "quotes.txt"
     if not quotes_bestand.exists():
         quotes_opslaan_txt()
-    else:
-        pass
-
+        
     new_quotes = []
     with open(quotes_bestand, "r") as f:
         for line in f:
