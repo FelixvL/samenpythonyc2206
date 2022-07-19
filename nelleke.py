@@ -86,15 +86,15 @@ def quotes_tonen():
     return jsonify(quotes_lezen_txt())
 
 def quote_toon_random():
-    nummer = random.randint(0, 21)
+    nummer = random.randint(0, 20)
     quotes = quotes_lezen_txt()
+    print(type(quotes))
     resultaat = {"quote":quotes[nummer]} 
     return jsonify(resultaat)
 
 def quote_toon_ranslim():
     quotes = quotes_lezen_txt()
-    resultaat = random.sample(quotes, 1)
-    return jsonify(resultaat)
+    return random.choice(quotes)
 
 def quotes_opslaan_sql():    
     quotes = quotes_lezen_txt()
