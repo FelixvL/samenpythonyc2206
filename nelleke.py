@@ -36,7 +36,7 @@ def toon_data_rij(num):
     return toon.to_json()
 
 def toon_data_random():
-    return df.sample().to_json(orient = "index")
+    return df.sample().to_json()
 
 def get_quotes():    
     try: # errorhandling
@@ -90,6 +90,11 @@ def quote_random():
     quotes = quotes_lezen_txt()
     resultaat = {"quote":quotes[nummer]} 
     return jsonify(resultaat)
+
+def quote_ranslim():
+    quotes = quotes_lezen_txt()
+    resultaat = quotes.sample().to_json(orient = "index")
+    return resultaat
 
 def quotes_opslaan_sql():    
     quotes = quotes_lezen_txt()
