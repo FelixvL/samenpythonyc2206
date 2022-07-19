@@ -88,7 +88,6 @@ def quotes_tonen():
 def quote_toon_random():
     nummer = random.randint(0, 20)
     quotes = quotes_lezen_txt()
-    print(type(quotes))
     resultaat = {"quote":quotes[nummer]} 
     return jsonify(resultaat)
 
