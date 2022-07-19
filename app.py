@@ -53,25 +53,6 @@ def quoteaanmaken(name):
     felix.aanmakenquote(name)
     return "Wij kunnen inderdaad een quote aanmaken"
 
-<<<<<<< HEAD
-=======
-@app.route("/nelleketweede/<num>")
-@cross_origin()
-def nelleketweede(num):
-    return nelleke.toon_data_rij(num)
-
-@app.route("/nellekederde/")
-@cross_origin()
-def nellekederde():
-    print("De derde doet het wel")
-    return nelleke.quotes_tonen_allemaal()
-
-@app.route("/nellekevierde/")
-@cross_origin()
-def nellekevierde():
-    return nelleke.quote_random()
-
->>>>>>> master
 @app.route('/felixposttrial', methods = ['POST'])
 def update_text():
     return felix.postprobeersel(request)
@@ -79,17 +60,17 @@ def update_text():
 @app.route("/maaltijden")
 @cross_origin()
 def maaltijden():
-    return nelleke.toon_data()
+    return nelleke.toon_maaltijden()
 
 @app.route("/maaltijd_rij/<num>")
 @cross_origin()
-def toon_maaltijd_rij(num):
-    return nelleke.toon_data_rij(num)
+def maaltijd_rij(num):
+    return nelleke.toon_maaltijd_rij(num)
 
 @app.route("/maaltijd_random/")
 @cross_origin()
 def maaltijd_random():
-    return nelleke.toon_data_random()
+    return nelleke.toon_maaltijd_random()
 
 @app.route("/quotes/")
 @cross_origin()
@@ -113,21 +94,3 @@ def quotes_opslaan_sql():
 def ververs_quotes():
     nelleke.quotes_opslaan_txt()
     return "de quotes zijn ververst"
-
-@app.route("/quote_random/")
-@cross_origin()
-def random_maaltijd():
-    return nelleke.toon_data_random()
-
-<<<<<<< HEAD
-# @app.route("/quote_random2/")
-# @cross_origin()
-# def quote_random2():
-#     return nelleke.quote_ranslim()
-=======
-@app.route("/ververs_quotes/")
-@cross_origin()
-def ververs_quotes():
-    nelleke.quotes_opslaan_txt()
-    return "de quotes zijn ververst"
->>>>>>> master

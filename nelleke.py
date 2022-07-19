@@ -25,17 +25,17 @@ mydb = mysql.connector.connect(
 	database="bezorgappbigdata"
 )
 
-def toon_data():     
+def toon_maaltijden():     
     print(df.head())
-    return "toonDataDeel is gelukt"
+    return "toon maaltijden is gelukt"
 
-def toon_data_rij(num):
+def toon_maaltijd_rij(num):
     row = int(num)
     toon = df.iloc[row]
     print(toon)
     return toon.to_json()
 
-def toon_data_random():
+def toon_maaltijd_random():
     return df.sample().to_json()
 
 def get_quotes():    
