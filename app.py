@@ -57,6 +57,11 @@ def quote_nieuw(a,t):
 def update_text2():
     return felix.postprobeersel(request)
 
+@app.route('/maaltijden_datasave')
+def maaltijden_datasave():
+    return nelleke.datasave_maaltijden()
+
+
 @app.route("/maaltijden")
 @cross_origin()
 def maaltijden():
@@ -80,6 +85,7 @@ def quotes():
 @app.route("/quote_random/")
 @cross_origin()
 def quote_random():
+    print("het is gelukt wouter")
     return nelleke.quote_toon_random()
     
 # @app.route("/quote_ranslim/")

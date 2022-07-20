@@ -20,14 +20,7 @@ def quote_nieuw(a, t):
 	val = (a, t)
 	mycursor.execute(sql, val)
 	mydb.commit()
-	print(mycursor.rowcount, "auteur en tekst toegevoegd")
-
-# def postprobeersel(verzoek):
-# 	if verzoek.method == 'POST':
-# 		jsonResponse = json.loads(verzoek.data.decode('utf-8'))
-# 		print(jsonResponse["naam"])
-# 		return jsonResponse["naam"]
-# 	return "{\"oo\":\"GEEN POST\"}"
+	print(mycursor.rowcount, "een nieuwe quote is tijdelijk opgeslagen in de database")
 
 def postprobeersel(verzoek):
 	if verzoek.method == 'POST':
@@ -37,5 +30,5 @@ def postprobeersel(verzoek):
 		a = jsonResponse["auteur"]
 		quote_nieuw(t,a)
 
-		return "een nieuwe quote (met een tekst een auteur) is opgeslagen in de database"
+		return "tekst en auteur zijn nu te zien in de front-end"
 	return "{\"oo\":\"GEEN POST\"}"
