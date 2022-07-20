@@ -6,3 +6,5 @@ beautifulsoup4
 requests
 regex
 python-dotenv
+sqlalchemy
+MySQLdb

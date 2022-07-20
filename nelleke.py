@@ -7,6 +7,8 @@ import json
 import re
 import random
 from pathlib import Path
+from sqlalchemy import create_engine
+import MySQLdb
 
 CWD = Path(__file__).parent
 DATAPATH = CWD / "data"
@@ -24,6 +26,17 @@ mydb = mysql.connector.connect(
 	password="abcd1234ABCD!@#$",
 	database="bezorgappbigdata"
 )
+def datasave_maaltijden():
+    password = "abcd1234ABCD!@#$"
+    root = "beheerder@2206-bezorgapp"
+    host = "2206-bezorgapp.mysql.database.azure.com"
+    host2 = "http://127.0.0.1:5000"
+    database = "bezorgappbigdata"
+
+    engine = create_engine(f'mysql+mysqldb://{root}:{password}@{host}/{database}', echo = False)
+    df.to_sql(name = 'test_1', con = engine, if_exists = 'append', index = False)
+
+    print("alle data is opgeslagen in de SQLdatabase")
 
 def toon_maaltijden():     
     print(df.head())
