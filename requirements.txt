@@ -8,3 +8,4 @@ regex
 python-dotenv
 sqlalchemy
 MySQLdb
+collections

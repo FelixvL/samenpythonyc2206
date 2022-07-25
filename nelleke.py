@@ -9,6 +9,7 @@ import random
 from pathlib import Path
 from sqlalchemy import create_engine
 import MySQLdb
+import collections
 
 CWD = Path(__file__).parent
 DATAPATH = CWD / "data"
@@ -75,61 +76,35 @@ def get_quotes():
 
     mydb.commit()
 
-# def quotes_opslaan_txt():
-#     quotes = get_quotes()
-
-#     # maak datapath aan en als deze bestaat, geef dan geen error
-#     DATAPATH.mkdir(exist_ok=True)
-
-#     with open(DATAPATH / "quotes.txt", "w") as f:
-#         for q in quotes:
-#             f.write(q + "\n")
-
-# def quotes_lezen_txt():
-#     quotes_bestand = DATAPATH / "quotes.txt"
-#     if not quotes_bestand.exists():
-#         quotes_opslaan_txt()
-        
-#     new_quotes = []
-#     with open(quotes_bestand, "r") as f:
-#         for line in f:
-#             new_quotes.append(line.strip())
-#     return new_quotes
-
 def quotes_tonen():
     mycursor = mydb.cursor()
     mycursor.execute("SELECT * FROM quote")
 
-    resultaat = mycursor.fetchall()
+    quotes_in_sql = mycursor.fetchall()
+    quotes = []
+    for q in quotes_in_sql:
+        d = collections.OrderedDict()
+        d["ID"] = q[0]
+        d["tekst"] = q[1]
+        d["auteur"] = q[2]
+ 
+        quotes.append(d)
     
-    return json.dumps(dict(resultaat))
+    return jsonify(quotes)
 
-# def quotes_tonen():
-#     return jsonify(quotes_lezen_txt())
 
 def quote_toon_random():
-    nummer = random.randint(0, 20)
-    quotes = quotes_lezen_txt()
-    resultaat = {"quote":quotes[nummer]} 
-    return jsonify(resultaat)
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT * FROM quote order by RAND() limit 1")
 
-# def quotes_opslaan_sql():    
-#     quotes = quotes_lezen_txt()
-
-#     mycursor = mydb.cursor()
+    quotes_in_sql = mycursor.fetchall()
+    quotes = []
+    for q in quotes_in_sql:
+        d = collections.OrderedDict()
+        d["ID"] = q[0]
+        d["tekst"] = q[1]
+        d["auteur"] = q[2]
+ 
+        quotes.append(d)
     
-#     # # leeg tabel
-#     # mycursor.execute("DELETE FROM quote")
-    
-#     # reset index
-#     mycursor.execute("ALTER TABLE quote AUTO_INCREMENT = 1")
-
-#     for quote in quotes[:21]:        
-#         tekst, auteur = quote.split(" - ")
-    
-#         sql = "INSERT INTO quote (tekst, auteur) VALUES (%s, %s)"
-#         val = (tekst, auteur)
-#         mycursor.execute(sql, val)
-#         print(mycursor.rowcount, "record inserted.")
-    
-#     mydb.commit()
+    return jsonify(quotes)
