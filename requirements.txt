@@ -7,4 +7,5 @@ requests
 regex
 python-dotenv
 sqlalchemy
-mysqlclient
+MySQLdb
+collections

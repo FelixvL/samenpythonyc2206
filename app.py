@@ -68,7 +68,7 @@ def quotes_get():
     nelleke.get_quotes()
     return ("het is gelukt")
 
-@app.route("/quote_random/")
+@app.route("/quotes_random/")
 @cross_origin()
 def quote_random():
     return nelleke.quote_toon_random()
