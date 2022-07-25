@@ -26,27 +26,16 @@ mydb = mysql.connector.connect(
 	password="abcd1234ABCD!@#$",
 	database="bezorgappbigdata"
 )
-def datasave_maaltijden():
-    password = "abcd1234ABCD!@#$"
-    root = "beheerder@2206-bezorgapp"
-    host = "2206-bezorgapp.mysql.database.azure.com"
-    host2 = "http://127.0.0.1:5000"
-    database = "bezorgappbigdata"
-
-    engine = create_engine(f'mysql+mysqldb://{root}:{password}@{host}/{database}', echo = False)
-    df.to_sql(name = 'test_1', con = engine, if_exists = 'append', index = False)
-
-    print("alle data is opgeslagen in de SQLdatabase")
 
 def toon_maaltijden():     
     print(df.head())
     return "toon maaltijden is gelukt"
 
-def toon_maaltijd_rij(num):
-    row = int(num)
-    toon = df.iloc[row]
-    print(toon)
-    return toon.to_json()
+# def toon_maaltijd_rij(num):
+#     row = int(num)
+#     toon = df.iloc[row]
+#     print(toon)
+#     return toon.to_json()
 
 def toon_maaltijd_random():
     return df.sample().to_json(orient="records")
@@ -62,41 +51,61 @@ def get_quotes():
     soup = bs4.BeautifulSoup(html_doc, 'html.parser') # turn html_doc into BS4 object
     quotes = soup.find_all("h2") # find all quotes  
     
-    quotes_lijst = []
-    
+    mycursor = mydb.cursor()
+    print("check 1")
     for q in quotes[:21]:
         res = str(q).split("“")
         res2 = res[1][:-5]
         res3 = res2.split("” — ")
+        print("check 2")
+
+        # check if quote in db
+        sql = "SELECT COUNT(*) from quote WHERE tekst = %s"
+        val = (res3[0],)
+        mycursor.execute(sql, val)
+        aantal = mycursor.fetchone()
+        print(f'{aantal}, "check 3"')
+
+        if aantal[0] == 0:
+            sql = "INSERT INTO quote (tekst, auteur) VALUES (%s, %s)"
+            val = (res3[0], res3[1])
+            mycursor.execute(sql, val)
+            print(mycursor.rowcount, "record inserted.")
+            print("check 4")
+
+    mydb.commit()
+
+# def quotes_opslaan_txt():
+#     quotes = get_quotes()
+
+#     # maak datapath aan en als deze bestaat, geef dan geen error
+#     DATAPATH.mkdir(exist_ok=True)
+
+#     with open(DATAPATH / "quotes.txt", "w") as f:
+#         for q in quotes:
+#             f.write(q + "\n")
+
+# def quotes_lezen_txt():
+#     quotes_bestand = DATAPATH / "quotes.txt"
+#     if not quotes_bestand.exists():
+#         quotes_opslaan_txt()
         
-        tekst_en_auteur = (f"{res3[0]} - {res3[1]}")
-        quotes_lijst.append(tekst_en_auteur)
-    
-    return quotes_lijst
-
-def quotes_opslaan_txt():
-    quotes = get_quotes()
-
-    # maak datapath aan en als deze bestaat, geef dan geen error
-    DATAPATH.mkdir(exist_ok=True)
-
-    with open(DATAPATH / "quotes.txt", "w") as f:
-        for q in quotes:
-            f.write(q + "\n")
-
-def quotes_lezen_txt():
-    quotes_bestand = DATAPATH / "quotes.txt"
-    if not quotes_bestand.exists():
-        quotes_opslaan_txt()
-        
-    new_quotes = []
-    with open(quotes_bestand, "r") as f:
-        for line in f:
-            new_quotes.append(line.strip())
-    return new_quotes
+#     new_quotes = []
+#     with open(quotes_bestand, "r") as f:
+#         for line in f:
+#             new_quotes.append(line.strip())
+#     return new_quotes
 
 def quotes_tonen():
-    return jsonify(quotes_lezen_txt())
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT * FROM quote")
+
+    resultaat = mycursor.fetchall()
+    
+    return json.dumps(dict(resultaat))
+
+# def quotes_tonen():
+#     return jsonify(quotes_lezen_txt())
 
 def quote_toon_random():
     nummer = random.randint(0, 20)
@@ -104,26 +113,23 @@ def quote_toon_random():
     resultaat = {"quote":quotes[nummer]} 
     return jsonify(resultaat)
 
-# def quote_toon_ranslim():
+# def quotes_opslaan_sql():    
 #     quotes = quotes_lezen_txt()
-#     return random.choice(quotes)
 
-def quotes_opslaan_sql():    
-    quotes = quotes_lezen_txt()
+#     mycursor = mydb.cursor()
+    
+#     # # leeg tabel
+#     # mycursor.execute("DELETE FROM quote")
+    
+#     # reset index
+#     mycursor.execute("ALTER TABLE quote AUTO_INCREMENT = 1")
 
-    mycursor = mydb.cursor()
-    # leeg tabel
-    mycursor.execute("DELETE FROM quote")
+#     for quote in quotes[:21]:        
+#         tekst, auteur = quote.split(" - ")
     
-    # reset index
-    mycursor.execute("ALTER TABLE quote AUTO_INCREMENT = 1")
-
-    for quote in quotes[:21]:        
-        tekst, auteur = quote.split(" - ")
+#         sql = "INSERT INTO quote (tekst, auteur) VALUES (%s, %s)"
+#         val = (tekst, auteur)
+#         mycursor.execute(sql, val)
+#         print(mycursor.rowcount, "record inserted.")
     
-        sql = "INSERT INTO quote (tekst, auteur) VALUES (%s, %s)"
-        val = (tekst, auteur)
-        mycursor.execute(sql, val)
-        print(mycursor.rowcount, "record inserted.")
-    
-    mydb.commit()
+#     mydb.commit()
