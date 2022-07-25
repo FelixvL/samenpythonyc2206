@@ -65,8 +65,7 @@ def quotes():
 @app.route("/quotes_verversen/")
 @cross_origin()
 def quotes_get():
-    nelleke.get_quotes()
-    return ("het is gelukt")
+    return nelleke.get_quotes()
 
 @app.route("/quotes_random/")
 @cross_origin()
